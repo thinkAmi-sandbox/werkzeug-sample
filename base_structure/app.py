@@ -93,6 +93,10 @@ class Application:
             # 常にセットするCookie
             response.set_cookie('counter', str(int(counter) + 1))
 
+            # 同じCookieキーで、別々の属性をセットする
+            response.set_cookie('same_cookie', '1st', httponly=True)
+            response.set_cookie('same_cookie', '2nd', secure=True)
+
             # 独自HTTPヘッダをセット
             response.headers.add('X-headers-add', 'using add')
             response.headers.add_header('X-headers-add_header', 'using add_header')
