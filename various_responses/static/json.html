@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON response</title>
+</head>
+<body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<p>
+    <label for="id_input">POST data: </label>
+    <input id="id_input" type="text">
+</p>
+<button id="id_get_json">Go</button>
+<p>foo: <span id="id_foo"></span></p>
+bar:
+<ul id="id_bar">
+</ul>
+<p>input data: <span id="id_input_result"></span></p>
+<script>
+    $(function () {
+        $('#id_get_json').on('click', function () {
+            $.ajax({
+                url: '/json',
+                type: 'POST',
+                dataType: 'json',
+                data: {'input': $('#id_input').val()}
+            }).done((data) => {
+                $('#id_foo').html(data['foo']);
+                data['bar'].forEach((currentValue, index) => {
+                    $('#id_bar').append(`<li>No. ${index}: ${currentValue} </li>`)
+                });
+                $('#id_input_result').html(data['result']);
+            }).fail((data) => { console.log('fail!') })
+        })
+    })
+</script>
+</body>
+</html>
